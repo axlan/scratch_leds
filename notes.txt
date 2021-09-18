@@ -1,0 +1,53 @@
+eclipse-mosquitto
+node
+
+apt update; apt install nmap -y
+nmap -p1883 broker
+
+mosquitto_passwd -c passfile user
+
+# FROM ubuntu:21.10
+
+# ENV TERM linux
+# ENV DEBIAN_FRONTEND noninteractive
+
+# RUN apt-get update
+# RUN apt-get install -y mosquitto  
+
+# CMD ["/bin/bash"]
+
+FROM node
+
+CMD ["/bin/bash"]
+
+docker run -d \
+  -it \
+  -p 8080:8601\
+  --name devtest \
+  --mount type=bind,source="$(pwd)"/scratch-gui,target=/app \
+  node:latest
+
+docker exec -p 8080:8601 -ti $( docker ps | grep devtest | cut -d' ' -f1 ) bash
+
+# https://docs.docker.com/network/network-tutorial-standalone/
+
+# https://docs.docker.com/samples/wordpress/
+
+# npm install
+# npm start
+
+# ... save this file as Dockerfile then in same dir issue following
+#
+# docker build --tag stens_ubuntu .   # creates image stens_ubuntu
+#
+# docker run -d  stens_ubuntu  sleep infinity # launches container 
+#
+# docker ps     #   show running containers
+#
+# 
+# ... find CONTAINER ID from above and put into something like this
+#
+# docker exec -ti $( docker ps | grep stens_ubuntu | cut -d' ' -f1 ) bash   #  login to running container
+# docker exec -ti 3cea1993ed28 bash   #  login to running container using sample containerId  
+#
+
