@@ -4,6 +4,10 @@ npm run watch
 cd scratch-gui
 npm start
 
+fire emblem: 192.168.1.123
+
+
+
 eclipse-mosquitto
 node
 
